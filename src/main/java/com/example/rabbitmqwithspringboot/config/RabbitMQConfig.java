@@ -24,17 +24,18 @@ public class RabbitMQConfig {
     public DirectExchange directExchange(){
         return new DirectExchange(EXCHANGE);
     }
-  @Bean
-  public Binding binding(Queue queue, DirectExchange directExchange){
-        return  BindingBuilder.bind(queue).to(directExchange).with(ROUTING_KEY);
-   }
 
-  @Bean
+    @Bean
+    public Binding binding(Queue queue, DirectExchange directExchange){
+            return  BindingBuilder.bind(queue).to(directExchange).with(ROUTING_KEY);
+    }
+
+    @Bean
     public MessageConverter messageConverter(){
         return new Jackson2JsonMessageConverter();
   }
 
-  @Bean
+    @Bean
     public AmqpTemplate getTemplate(ConnectionFactory connectionFactory){
       RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
        rabbitTemplate.setMessageConverter(messageConverter());
